@@ -273,16 +273,25 @@ export default function LandingPage({ onGo }) {
       </div>
 
       <div style={{ width: "100%", maxWidth: 900, display: "grid", gap: 28 }}>
-        {[
-          { key: "presemina",  label: "PRESEMINA E SEMINA" },
-          { key: "raccolta",   label: "RACCOLTA E CONSEGNA AL SILOS" },
-          { key: "stoccaggio", label: "STOCCAGGIO E CONSEGNA A SEMOLIERE" },
-        ].map(({ key, label }) => (
-          <button key={key} style={faseBtn} onClick={() => onGo(key)}>
-            <div style={{ fontSize: 42, fontWeight: 700, marginBottom: 6, textAlign: "center" }}>{label}</div>
-            <div style={{ fontSize: 18, fontWeight: 500, opacity: 0.85 }}>Senti Blasi per descrizione</div>
-          </button>
-        ))}
+{[
+  { key: "presemina",  label: "PRESEMINA E SEMINA", description:"Origine certificata e identità varietale! All'interno di questa sezione troverai lo spazio per inserire dati indispensabili per identificare l'origine delle materie prime. Quanto inserirai consentirà di verificare la coerenza tra impegni contrattuali, superfici coltivate e varietà dichiarate, costruendo l'identità digitale del lotto fin dall'origine. Meno carte più certezze!" },
+  { key: "raccolta",   label: "RACCOLTA E CONSEGNA AL SILOS", description:"Qualità misurata, tracciabilità garantita! All'interno di questa sezione troverai lo spazio per registrare e consultare tutti i dati legati alla raccolta, al trasporto e al conferimento del grano presso il centro di stoccaggio. Ogni carico sarà collegato all'appezzamento di origine e ogni scarico sarà associato ai parametri qualitativi rilevati in ingresso (proteine, umidità, peso specifico), oltre alla destinazione in silos. Quanto inserirai permetterà di monitorare in modo oggettivo qualità, provenienza e integrità varietale lungo tutta la fase operativa. Meno dubbi, più sicurezze!" },
+  { key: "stoccaggio", label: "STOCCAGGIO E CONSEGNA A SEMOLIERE", description:"Lotto certificato, conformità verificata! All'interno di questa sezione troverai lo spazio per costruire e validare i lotti destinati a molino o industria, con volumi, caratteristiche qualitative e programmazione delle consegne. Ogni trasporto sarà collegato a un lotto univoco e ogni consegna sarà accompagnata da analisi qualitative e verifica varietale, consentendo il confronto diretto con i parametri contrattuali. Quanto inserirai renderà immediata la verifica di conformità e ridurrà il rischio di contestazioni. Meno contestazioni, più valore al tuo grano!" },
+].map(({ key, label, description }) => {
+  const bangIndex = description.indexOf("!");
+  const cursivePart = description.substring(0, bangIndex + 1);
+  const normalPart = description.substring(bangIndex + 1);
+
+  return (
+    <button key={key} style={faseBtn} onClick={() => onGo(key)}>
+      <div style={{ fontSize: 42, fontWeight: 700, marginBottom: 6, textAlign: "center" }}>{label}</div>
+      <div style={{ fontSize: 18, fontWeight: 500, opacity: 0.85 }}>
+        <span style={{ fontStyle: "italic", fontFamily: "Georgia, 'Times New Roman', serif" }}>{cursivePart}</span><br/>
+        {normalPart}
+      </div>
+    </button>
+  );
+})}
       </div>
 
       <div style={{ width: "100%", maxWidth: 900, marginTop: 32 }}>
